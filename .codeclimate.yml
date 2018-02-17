@@ -7,4 +7,5 @@ plugins:
 exclude_patterns:
 - "*.md"
 - "*.yml"
+- "*.yaml"
 - ".*"
