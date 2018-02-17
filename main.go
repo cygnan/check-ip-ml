@@ -21,9 +21,7 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-    params := templateParams{}
-
-    params.IP = r.RemoteAddr
+    params := templateParams{IP: r.RemoteAddr}
 
     indexTemplate.Execute(w, params)
 }
