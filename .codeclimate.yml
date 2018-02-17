@@ -1,0 +1,10 @@
+version: "2"
+
+plugins:
+  duplication:
+    enabled: true
+
+exclude_patterns:
+- "*.md"
+- "*.yml"
+- ".*"
