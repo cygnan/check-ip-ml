@@ -1,17 +1,29 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+    "net/http"
 
-	"google.golang.org/appengine"
+    "google.golang.org/appengine"
+    "html/template"
 )
 
+var (
+    indexTemplate = template.Must(template.ParseFiles("index.html"))
+)
+
+type templateParams struct {
+    IP string
+}
+
 func main() {
-	http.HandleFunc("/", indexHandler)
-	appengine.Main()
+    http.HandleFunc("/", indexHandler)
+    appengine.Main()
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<html><head><title>Current IP Check</title></head><body>Current IP Address: %s</body></html>\n", r.RemoteAddr)
+    params := templateParams{}
+
+    params.IP = r.RemoteAddr
+
+    indexTemplate.Execute(w, params)
 }
