@@ -1,8 +1,15 @@
 runtime: go
 api_version: go1
-
+env: standard
+threadsafe: true
+instance_class: F1
 handlers:
-- url: /.*
-  script: _go_app
-  secure: always
-  redirect_http_response_code: 301
+  - url: '/.*'
+    script: _go_app
+    secure: always
+    redirect_http_response_code: '301'
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: 1
+  min_pending_latency: 0.030s
+  max_pending_latency: automatic
