@@ -5,13 +5,10 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
-
-	"google.golang.org/appengine"
 )
 
-func main() {
+func init() {
 	http.HandleFunc("/", requestHandler)
-	appengine.Main()
 }
 
 func requestHandler(w http.ResponseWriter, r *http.Request) {
