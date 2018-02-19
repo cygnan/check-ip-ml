@@ -12,8 +12,14 @@ func init() {
 }
 
 func requestHandler(w http.ResponseWriter, r *http.Request) {
-	if isInvalidURL(r) {
+	if isInvalidHost(r) {
 		http.Redirect(w, r, "https://check-ip.ml", 301)
+		return
+	}
+
+	if isInvalidURL(r) {
+		http.NotFound(w, r)
+		return
 	}
 
 	w = addHeaders(w)
@@ -25,7 +31,7 @@ func requestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func isInvalidURL(r *http.Request) bool {
+func isInvalidHost(r *http.Request) bool {
 	host := getHost(r)
 
 	return !strings.HasSuffix(host, "check-ip.ml") &&
@@ -38,6 +44,10 @@ func getHost(r *http.Request) string {
 	}
 
 	return r.Host
+}
+
+func isInvalidURL(r *http.Request) bool {
+	return r.URL.Path != "/"
 }
 
 func addHeaders(w http.ResponseWriter) http.ResponseWriter {
