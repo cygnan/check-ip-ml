@@ -80,5 +80,9 @@ func serveHTML(w http.ResponseWriter, r *http.Request) {
 		"IP": r.RemoteAddr,
 	}
 
-	indexTemplate.Execute(w, param)
+	err := indexTemplate.Execute(w, param)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError),
+			http.StatusInternalServerError)
+	}
 }
