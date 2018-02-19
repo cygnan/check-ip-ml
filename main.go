@@ -49,6 +49,7 @@ func addHeaders(w http.ResponseWriter) http.ResponseWriter {
 		"Content-Security-Policy":   "default-src 'none'",
 		"Referrer-Policy":           "no-referrer",
 		"X-Robots-Tag":              "noarchive",
+		"Cache-Control":             "max-age=0",
 	}
 
 	for k, v := range headers {
